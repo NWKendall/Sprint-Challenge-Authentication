@@ -48,6 +48,13 @@ router.post('/login', (req, res) => {
     })
 });
 
+router.get('/register', (req, res) => {
+  res.status(200).json({ API: 'WORKING'})
+})
+
+router.get('/login', (req, res) => {
+  res.status(200).json({ API: 'WORKING'})
+})
 
 function generateToken(user){
   const payload ={
