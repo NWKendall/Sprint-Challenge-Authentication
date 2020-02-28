@@ -1,29 +1,55 @@
-require('dotenv').config();
+const authModel = require('./auth-model.js');
+const db = require('../database/dbConfig.js');
+
 const request = require('supertest');
-
-const router = require('./auth-router');
-
-
+const server = require('../api/server.js');
 // register
-describe('get /regiester ', () => {
-  it('returns a status 200 OK', () => {
-    request(router)
-      .get('/register')
-      .then(res => {
-        expect(res.status).toBe(200);    
-        })
+describe('POST /register ', function() {
+
+  beforeEach
+  (async () => {
+    await db('users').truncate();
+  })
+  
+  it('registers new user', async function() {
+    await authModel
+      .registerUser({ username: "TEST", password: "TEST"})
+
+    const testDB = await db('users')
+
+    expect(testDB).toHaveLength(1)
     })
+
 })
 
 
+describe('POST /login ', function() {
 
-// login
-describe('get /login ', () => {
-  it('returns a status 200 OK', () => {
-    request(router)
-      .get('/login')
-      .then(res => {
-        expect(res.status).toBe(200);    
-        })
-    })
+  it('runs the test', function() {
+    expect(true).toBe(true);
+  })
+
+
+  
+  it('returns a status of 404 when the credentials don\'t exist in the db', async () => {
+    const testUser = {};
+        const response = await request(server)
+          .post('/login')
+          .send(testUser);
+        
+        expect(response.status).toBe(404);
+  })
+
+  it('returns status code 200', async () => {
+    
+    const testReg = { username: "TEST", password: "TEST"}
+    const response = await request(server)
+        .post('/login')
+        .send(testReg);
+    
+        expect(response.status).toBe(200)
+   
+
+  })
+
 })

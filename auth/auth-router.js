@@ -2,12 +2,16 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { jwtSecret } = require('../config/secrets.js')
 
-
-
-
 const router = require('express').Router();
 const authData = require('./auth-model.js');
 
+router.get('/register', (req, res) => {
+  res.status(200).json({ API: 'WORKING'})
+})
+
+router.get('/login', (req, res) => {
+  res.status(200).json({ API: 'WORKING'})
+})
 
 router.post('/register', (req, res) => {
   // implement registration
@@ -48,13 +52,7 @@ router.post('/login', (req, res) => {
     })
 });
 
-router.get('/register', (req, res) => {
-  res.status(200).json({ API: 'WORKING'})
-})
 
-router.get('/login', (req, res) => {
-  res.status(200).json({ API: 'WORKING'})
-})
 
 function generateToken(user){
   const payload ={
