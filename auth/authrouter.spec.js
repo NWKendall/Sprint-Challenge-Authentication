@@ -20,6 +20,15 @@ describe('POST /register ', function() {
     expect(testDB).toHaveLength(1)
     })
 
+    it('returns a status of 404 when the posting no credentials to the db', async () => {
+      const testUser = {};
+          const response = await request(server)
+            .post('/register')
+            .send(testUser);
+          
+          expect(response.status).toBe(404);
+    })
+
 })
 
 
@@ -43,13 +52,11 @@ describe('POST /login ', function() {
   it('returns status code 200', async () => {
     
     const testReg = { username: "TEST", password: "TEST"}
-    const response = await request(server)
-        .post('/login')
-        .send(testReg);
     
-        expect(response.status).toBe(200)
-   
-
+    // const response = await request(server)
+    //     .post('/login')
+    //     .send(testReg)
+    //     .getUserById(response.id)
+  
   })
-
 })

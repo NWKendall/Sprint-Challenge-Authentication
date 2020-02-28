@@ -11,7 +11,7 @@ describe('Server', () => {
   })
 
   describe('get /api ', () => {
-    it('returns a status 200 OK', () => {
+    it('returns a status 200 OK to root endpoint', () => {
       request(server)
         .get('/api')
         .then(res => {
